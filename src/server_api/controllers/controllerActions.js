@@ -26,6 +26,8 @@ module.exports.getActions = function(req, res) {
 };
 
 module.exports.createAction = function(req, res){
+  console.log(req.body);
+
   if(!req.body.title || !req.body.details || !req.body.lng2 || !req.body.lat2){
     sendJsonResponse(res, 400, {"message":"title, details, coords are required"});
   } else {
