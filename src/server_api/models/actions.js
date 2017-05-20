@@ -8,12 +8,12 @@ var personSchema = require('./persons');
 var actionSchema = new mongoose.Schema({
   title : {type : String, required : true},
   details : {type : String, required : true},
-  persons : [personSchema],
+  persons : {type: [personSchema]},
   professions : {type : String, enum:['SPELEOLOG','ALPINIST','VODA','HELIKOPTER']},
-  leader : personSchema,
+  leader : {type: personSchema},
   coords : {type: [Number], index: '2dsphere', required: true},
   dateStart: {type: Date, default: Date.now},
-  dateFinish: Date
+  dateFinish: {type: Date}
 });
 
 mongoose.model('Action', actionSchema);
