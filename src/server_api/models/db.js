@@ -3,7 +3,7 @@ require('./locations');
 require('./actions');
 require('./persons');
 require('./stations');
-var dbURI = 'mongodb://hgss:hgss123@127.0.0.1:27017/hgss';
+var dbURI = 'mongodb://hgss:hgss123@192.168.201.46:27017/hgss';
 //if (process.env.NODE_ENV === 'production'){
 //  dbURI = process.env.MLAB_URI;
 //}
