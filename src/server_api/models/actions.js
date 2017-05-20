@@ -13,7 +13,8 @@ var actionSchema = new mongoose.Schema({
   professions : {type : String, enum:['SPELEOLOG','ALPINIST','VODA','HELIKOPTER']},
   leader : personSchema,
   location : locationSchema,
-  zone : [locationSchema]
+  zone : [locationSchema],
+  date: {type: Date, default: Date.now}
 });
 
 mongoose.model('Action', actionSchema);
