@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import Login from '../src/components/Login';
+
 const FullCover = styled.div`
   position: fixed;
   top: 0;
@@ -13,17 +15,7 @@ const FullCover = styled.div`
   background-size: cover;
 `;
 
-const Card = styled.div`
-
-`;
-
 export default () => <div>
   <FullCover />
-  <div className="card">
-    <div className="card-block">
-      <h4 className="card-title">Special title treatment</h4>
-      <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a href="#" className="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
+  <Login />
 </div>;
