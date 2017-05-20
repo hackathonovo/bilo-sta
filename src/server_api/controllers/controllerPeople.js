@@ -113,21 +113,21 @@ module.exports.updateUser = function(req, res){
   }
 };
 
-module.exports.setAvailability = function(req, res){
-  if(!req.body.username || !req.body.days){
-    sendJsonResponse(res, 400, {"message":"username and days are required"})
+module.exports.setAvailability = function(req, res) {
+  if (!req.body.username || !req.body.days) {
+    sendJsonResponse(res, 400, {"message": "username and days are required"})
   } else {
     Person.findOne({
       username: req.body.username
-    },function(err, person){
-      if(!person){
-        sendJsonResponse(res, 400, {"message":"username not found"})
-      } else if(err){
+    }, function (err, person) {
+      if (!person) {
+        sendJsonResponse(res, 400, {"message": "username not found"})
+      } else if (err) {
         sendJsonResponse(res, 404, err);
       } else {
         person.available = false;
-        person.save(function(err, person){
-          if(err){
+        person.save(function (err, person) {
+          if (err) {
             sendJsonResponse(res, 404, err);
           } else {
             sendJsonResponse(res, 200, person);
@@ -136,4 +136,24 @@ module.exports.setAvailability = function(req, res){
       }
     });
   }
+};
+
+module.exports.availableUsers = function(req, res) {
+  availableUsers = [];
+  Person.find(function (err, person) {
+    if(err){
+      sendJsonResponse(res, 400, err);
+    }
+    else{
+      person.forEach(function (value) {
+        console.log(value.available);
+        if(value.available === true){
+          console.log(value.available);
+          availableUsers.push(value);
+        }
+      });
+      sendJsonResponse(res, 200, availableUsers)
+
+    }
+  });
 };

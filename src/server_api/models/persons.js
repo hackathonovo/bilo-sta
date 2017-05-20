@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var stationSchema = require('./stations');
+var roleSchema = require('./roles');
+
 
 var personSchema = new mongoose.Schema({
   username: {type: String, required: true},
@@ -12,7 +14,7 @@ var personSchema = new mongoose.Schema({
   smartphone: Boolean,
   profession: {type:[String], enum:['speolog','alpinist','spasavatelj_na_vodi','helikoptersko_spasavanje', 'sve']},
   address: {type: stationSchema},
-  role: {type: String, enum:['rookie','admin','rescuer','instructor']}
+  role: {type: roleSchema}
 });
 
 //personSchema.ensureIndex({"address.coords": "2dsphere"});
