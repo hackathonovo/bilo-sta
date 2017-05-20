@@ -7,7 +7,7 @@ var locationSchema = require('./locations');
 
 var stationSchema = new mongoose.Schema({
   name :{type : String, required : true},
-  location : {type : locationSchema, required:true}
+  coords: {type: [Number], index: '2dsphere', required: true}
 });
 
 mongoose.model('Station', stationSchema);
