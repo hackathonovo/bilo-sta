@@ -11,7 +11,7 @@ module.exports.login = function(req, res){
   if (req.body.username || req.body.password){
     var username = req.body.username;
     var password = req.body.password;
-    Person.findOne({username:username}, function (err, person) {
+    Person.findOne({username:username}, function (err, person) {rim
       if (err){
         sendJsonResponse(res, 400, err);
       } else {

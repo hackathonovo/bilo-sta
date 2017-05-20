@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var controller = require('../controllers/controllerPeople');
+var controllerPeople = require('../controllers/controllerPeople');
 
 router.post('/login', controllerPeople.login);
 
