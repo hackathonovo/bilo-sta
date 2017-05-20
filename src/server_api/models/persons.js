@@ -15,6 +15,7 @@ var personSchema = new mongoose.Schema({
   role: {type: String, enum:['rookie','admin','rescuer','instructor']}
 });
 
+//personSchema.ensureIndex({"address.coords": "2dsphere"});
 mongoose.model('Person', personSchema);
 
 module.exports = {
