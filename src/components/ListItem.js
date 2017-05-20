@@ -1,9 +1,12 @@
 import { Component } from 'react';
 import styled from 'styled-components';
 
+import { getJSON } from '../helpers';
+
 const HiddenLink = styled.a`
   text-decoration: none;
   color: black;
+  text-align: left;
   
   &:hover, &:focus {
     text-decoration: none;
@@ -17,7 +20,6 @@ const FieldContainer = styled.div`
 `;
 
 const Input = styled.input`
-  padding: 5px;
   width: calc(100% - 150px);
 `;
 
@@ -26,25 +28,54 @@ const Label = styled.label`
   width: 150px;
 `;
 
+const Select = styled.select`
+  width: calc(100% - 150px);
+  padding: 5px;
+  border-radius: 0;
+  border: 1px solid #ccc; 
+  background-color: white;
+  padding: 2px;
+`;
+
 export default class ListItem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { data: this.props.data };
+    this.state = { data: this.props.data, spec: this.props.data.profession.toString(), roles:[] };
 
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleInputChange(e) {
+  componentWillMount() {
+    getJSON('/api/roles', (err, roles) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      this.setState({ ...this.state, roles });
+    });
+  }
+
+  handleInputChange(e, isArray, isBoolean) {
+    console.log(e.target.value);
     const newState = { ...this.state };
-    newState.data[e.target.name] = e.target.value;
+
+    if (isArray) {
+      newState.spec = e.target.value;
+    } else if (isBoolean) {
+      newState.data[e.target.name] = !newState.data[e.target.name];
+    } else if (e.target.name === 'address') {
+      newState.data.address.addressname = e.target.value;
+    } else {
+      newState.data[e.target.name] = e.target.value;
+    }
 
     this.setState(newState);
   }
 
   render() {
     const data = this.state.data;
-    console.log(data);
 
     return (
       <div className="card height-fix cursor">
@@ -55,16 +86,18 @@ export default class ListItem extends Component {
             </h5>
           </div>
         </HiddenLink>
-
-        <div id={`colapse-${data._id}`} className="collapse" role="tabpanel" aria-labelledby={data._id}>
+        <div id={`colapse-${data._id}`} className='collapse' role="tabpanel" aria-labelledby={data._id}>
           <div className="card-block">
             <FieldContainer><Label>Ime:&nbsp;</Label><Input name="firstname" type="text" value={data.firstname} onChange={this.handleInputChange} /></FieldContainer>
             <FieldContainer><Label>Prezime:&nbsp;</Label><Input name="lastname" type="text" value={data.lastname} onChange={this.handleInputChange} /></FieldContainer>
             <FieldContainer><Label>E-mail:&nbsp;</Label><Input name="mail" type="text" value={data.mail} onChange={this.handleInputChange} /></FieldContainer>
-            <FieldContainer><Label>Broj mobitela&nbsp;</Label><Input name="phoneNumber" type="text" value={data.phoneNumber} onChange={this.handleInputChange} /></FieldContainer>
-            {/*<FieldContainer><Label>Specijalnosti&nbsp;</Label><Input type="text" value={data.profession} onChange={this.handleInputChange} /></FieldContainer>*/}
-            {/*<FieldContainer><Label>Uloga&nbsp;</Label><Input type="text" value={data.role} onChange={this.handleInputChange} /></FieldContainer>*/}
-            {/*<FieldContainer><Label>Ima smartphone&nbsp;</Label><Input type="checkbox" checked data-toggle="toggle" onChange={this.handleInputChange} /></FieldContainer>*/}
+            <FieldContainer><Label>Broj mobitela:&nbsp;</Label><Input name="phoneNumber" type="text" value={data.phoneNumber} onChange={this.handleInputChange} /></FieldContainer>
+            <FieldContainer><Label>Adresa:&nbsp;</Label><Input name="address" type="text" value={data.address.addressname} onChange={this.handleInputChange} /></FieldContainer>
+            <FieldContainer><Label>Korisničko ime:&nbsp;</Label><Input name="username" type="text" value={data.username} onChange={this.handleInputChange} /></FieldContainer>
+            <FieldContainer><Label>Specijalnosti:&nbsp;</Label><Input name="profession" type="text" value={this.state.spec} onChange={(e) => this.handleInputChange(e, true)} /></FieldContainer>
+            <FieldContainer><Label>Uloga:&nbsp;</Label><Select name="role" value={data.role} onChange={this.handleInputChange}>{this.state.roles.map(role => <option value={role} key={role}>{role}</option>)}</Select></FieldContainer>
+            <FieldContainer><Label>Ima smartphone:&nbsp;</Label><Input name="smartphone" checked={data.smartphone} type="checkbox" onChange={(e) => this.handleInputChange(e, false, true)} /></FieldContainer>
+            <FieldContainer><Label>Slobodan:&nbsp;</Label><Input name="available" checked={data.available} type="checkbox" onChange={(e) => this.handleInputChange(e, false, true)} /></FieldContainer>
           </div>
         </div>
       </div>

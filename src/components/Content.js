@@ -23,7 +23,7 @@ export default class Content extends Component {
     switch (this.props.view) {
       case 'Lokacija':
         return <div>Lokacija</div>;
-      case 'Spašavatelji':
+      case 'Spasitelj':
         return <People />;
       case 'Akcije':
         return <div>Akcije</div>;
