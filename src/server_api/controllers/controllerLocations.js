@@ -12,7 +12,7 @@ var sendJsonResponse = function(res, status, content){
 };
 
 locations = []
-module.exports.locations = function (req , res) {
+module.exports.getLocations = function (req , res) {
   Person.find(function (err, items) {
     if(err){
       sendJsonResponse(res, 400, err);
