@@ -19,7 +19,7 @@ module.exports.getRoles = function (req , res) {
     else{
       items.forEach(function (value) {
         roles.push(value.role)
-      })
+      });
       sendJsonResponse(res, 200, roles)
     }
   });
@@ -48,4 +48,4 @@ module.exports.setRoles = function(req, res) {
     {
       sendJsonResponse(res, 400, "Please put data")
     }
-}
+};

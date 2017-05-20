@@ -9,7 +9,7 @@ var sendJsonResponse = function(res, status, content){
   res.json(content);
 };
 
-module.exports.actions = function(req, res) {
+module.exports.getActions = function(req, res) {
   actions = [];
   Action.find(function (err, items) {
     if(err){
@@ -23,7 +23,7 @@ module.exports.actions = function(req, res) {
       sendJsonResponse(res, 200, actions);
     }
   })
-}
+};
 
 module.exports.createAction = function(req, res){
   if(!req.body.title || !req.body.details || !req.body.lng2 || !req.body.lat2){
