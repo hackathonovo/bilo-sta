@@ -14,5 +14,6 @@ router.get('/people', controllerPeople.getUsers);
 router.get('/roles', controllerRoles.getRoles);
 router.post('/roles',controllerRoles.setRoles);
 router.post('/actions', controllerActions.createAction);
+router.post('/availability', controllerPeople.setAvailability);
 
 module.exports = router;

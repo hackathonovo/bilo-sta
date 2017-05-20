@@ -112,3 +112,28 @@ module.exports.updateUser = function(req, res){
     });
   }
 };
+
+module.exports.setAvailability = function(req, res){
+  if(!req.body.username || !req.body.days){
+    sendJsonResponse(res, 400, {"message":"username and days are required"})
+  } else {
+    Person.findOne({
+      username: req.body.username
+    },function(err, person){
+      if(!person){
+        sendJsonResponse(res, 400, {"message":"username not found"})
+      } else if(err){
+        sendJsonResponse(res, 404, err);
+      } else {
+        person.available = false;
+        person.save(function(err, person){
+          if(err){
+            sendJsonResponse(res, 404, err);
+          } else {
+            sendJsonResponse(res, 200, person);
+          }
+        });
+      }
+    });
+  }
+};

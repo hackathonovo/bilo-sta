@@ -92,6 +92,7 @@ module.exports.createAction = function(req, res){
       } else {
         Person.geoNear(point, geoOptions, function(err, results, stats){
           var people = [];
+          var distances = [];
           if(err){
             sendJsonResponse(res, 404, err);
           } else {
@@ -112,6 +113,7 @@ module.exports.createAction = function(req, res){
                 role: doc.obj.role,
                 available: doc.obj.available
               }));
+              distances.push({distance: doc.dis});
             });
             sendJsonResponse(res, 200, people);
           }
