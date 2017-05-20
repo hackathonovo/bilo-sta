@@ -1,7 +1,7 @@
 /* eslint no-undef: 'off' */;
 import 'whatwg-fetch';
 
-export const getJSON = (url, data, callback) => {
+export const postJSON = (url, data, callback) => {
   fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -10,9 +10,11 @@ export const getJSON = (url, data, callback) => {
     },
   }).then(res => {
     if (res.status < 400) {
-      res.json(ret => {
+      res.json().then(ret => {
         callback(null, ret);
       });
+
+      return;
     }
 
     callback({ code: res.status, message: res.statusText });
