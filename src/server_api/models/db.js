@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
-//require('./locations');
-//var dbURI = 'mongodb://loc8ruser:imgoingnowhere@127.0.0.1:27017/Loc8r';
+require('./locations');
+require('./actions');
+require('./persons');
+require('./stations');
+var dbURI = 'mongodb://hgss:hgss123@127.0.0.1:27017/hgss';
 //if (process.env.NODE_ENV === 'production'){
 //  dbURI = process.env.MLAB_URI;
 //}

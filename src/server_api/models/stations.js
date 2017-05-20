@@ -3,7 +3,7 @@
  */
 
 var mongoose = require('mongoose');
-var locationSchema = require('./locations')
+var locationSchema = require('./locations');
 
 var stationSchema = new mongoose.Schema({
   name :{type : String, required : true},

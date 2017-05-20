@@ -12,7 +12,7 @@ var actionSchema = new mongoose.Schema({
   persons : [personSchema],
   professions : {type : String, enum:['SPELEOLOG','ALPINIST','VODA','HELIKOPTER']},
   leader : personSchema,
-  location : Location,
+  location : locationSchema,
   zone : [locationSchema]
 });
 
