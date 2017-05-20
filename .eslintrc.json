@@ -12,6 +12,7 @@
     "no-plusplus": 0,
     "max-len": 1,
     "react/react-in-jsx-scope": 0,
-    "react/jsx-filename-extension": 0
+    "react/jsx-filename-extension": 0,
+    "import/first": 0
   }
 }
