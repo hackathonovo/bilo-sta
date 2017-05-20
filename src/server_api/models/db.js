@@ -4,9 +4,9 @@ require('./actions');
 require('./persons');
 require('./stations');
 var dbURI = 'mongodb://hgss:hgss123@192.168.201.46:27017/hgss';
-//if (process.env.NODE_ENV === 'production'){
-//  dbURI = process.env.MLAB_URI;
-//}
+if (process.env.NODE_ENV === 'production'){
+  dbURI = 'mongodb://hgss:hgss123@127.0.0.1:27017/hgss';
+}
 
 // Connect to the DB
 // if there is more db's:
