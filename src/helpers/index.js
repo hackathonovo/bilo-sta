@@ -22,3 +22,20 @@ export const postJSON = (url, data, callback) => {
     callback(err);
   });
 };
+
+export const getJSON = (url, callback) => {
+  fetch(url, { method: 'get' })
+    .then(res => {
+      if (res.status < 400) {
+        res.json().then(ret => {
+          callback(null, ret);
+        });
+
+        return;
+      }
+
+      callback({ code: res.status, message: res.statusText });
+    }, err => {
+      callback(err);
+    });
+};

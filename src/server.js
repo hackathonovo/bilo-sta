@@ -2,6 +2,7 @@
 
 const express = require('express');
 const next = require('next');
+const morgan = require('morgan');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -14,6 +15,7 @@ var routesApi = require('./server_api/routes/index');
 app.prepare()
   .then(() => {
     const server = express();
+    server.use(morgan('dev'));
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: false }));
     server.use('/api', routesApi);
