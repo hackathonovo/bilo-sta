@@ -43,12 +43,12 @@ module.exports.createAction = function(req, res){
         profession: req.body.profession ? req.body.profession.split(",") : req.body.profession,
         address: {
           addressname : req.body.addressname,
-          coords: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
+          coords: [parseFloat(req.body.address.coords[0]), parseFloat(req.body.address.coords[1])]
         },
         role: req.body.role,
         available: req.body.available
       },
-      coords : [parseFloat(req.body.lng2), parseFloat(req.body.lat2)],
+      coords : [parseFloat(req.body.coords[0]), parseFloat(req.body.coords[1])],
       personNumber: req.body.personNumber
     }, function(err, action){
       if(err){
