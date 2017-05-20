@@ -34,6 +34,8 @@ module.exports.createAction = function(req, res){
     var lng2 = req.body.action.coords[0];
     var lat2 = req.body.action.coords[1];
 
+
+
     Action.create({
       title : req.body.action.title,
       details : req.body.action.details,
