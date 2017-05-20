@@ -114,7 +114,7 @@ module.exports.updateUser = function(req, res){
 };
 
 module.exports.setAvailability = function(req, res) {
-  if (!req.body.username || !req.body.days) {
+  if (!req.body.username || !req.body.availability) {
     sendJsonResponse(res, 400, {"message": "username and days are required"})
   } else {
     Person.findOne({
@@ -125,7 +125,7 @@ module.exports.setAvailability = function(req, res) {
       } else if (err) {
         sendJsonResponse(res, 404, err);
       } else {
-        person.available = false;
+        person.available = req.body.availability;
         person.save(function (err, person) {
           if (err) {
             sendJsonResponse(res, 404, err);
