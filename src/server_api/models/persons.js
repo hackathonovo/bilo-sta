@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var stationSchema = require('./stations');
 
 var personSchema = new mongoose.Schema({
-  username: {type: String, required: true, unique: true},
+  username: {type: String, required: true},
   password: {type: String, required: true},
   firstname: {type: String, required: true},
   lastname: {type: String, required: true},
@@ -10,9 +10,9 @@ var personSchema = new mongoose.Schema({
   available: {type: Boolean, "default":true},
   phoneNumber: {type: String, required:true},
   smartphone: Boolean,
-  profession: {type:[String], enum:['SPELEOLOG','ALPINIST','VODA','HELIKOPTER']},
+  profession: {type:[String], enum:['speolog','alpinist','spasavatelj_na_vodi','helikoptersko_spasavanje', 'sve']},
   address: {type: stationSchema},
-  role: {type: String, enum:['ROOKIE','ADMIN','RESCUER','INSTRUCTOR']}
+  role: {type: String, enum:['rookie','admin','rescuer','instructor']}
 });
 
 mongoose.model('Person', personSchema);
