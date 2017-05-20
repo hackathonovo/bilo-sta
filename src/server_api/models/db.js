@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-require('./locations');
 require('./actions');
 require('./persons');
 require('./stations');

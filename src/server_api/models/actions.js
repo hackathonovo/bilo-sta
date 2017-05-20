@@ -4,7 +4,6 @@
 
 var mongoose = require('mongoose');
 var personSchema = require('./persons');
-var locationSchema = require('./locations');
 
 var actionSchema = new mongoose.Schema({
   title : {type : String, required : true},
@@ -13,7 +12,6 @@ var actionSchema = new mongoose.Schema({
   professions : {type : String, enum:['SPELEOLOG','ALPINIST','VODA','HELIKOPTER']},
   leader : personSchema,
   coords : {type: [Number], index: '2dsphere', required: true},
-  zone : [locationSchema],
   date: {type: Date, default: Date.now}
 });
 
