@@ -12,7 +12,8 @@ var actionSchema = new mongoose.Schema({
   professions : {type : String, enum:['SPELEOLOG','ALPINIST','VODA','HELIKOPTER']},
   leader : personSchema,
   coords : {type: [Number], index: '2dsphere', required: true},
-  date: {type: Date, default: Date.now}
+  dateStart: {type: Date, default: Date.now},
+  dateFinish: Date
 });
 
 mongoose.model('Action', actionSchema);

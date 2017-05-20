@@ -5,13 +5,11 @@
 var mongoose = require('mongoose');
 
 var stationSchema = new mongoose.Schema({
-  name :{type : String, required : true},
+  addressname :{type : String, required : true},
   coords: {type: [Number], index: '2dsphere', required: true}
 });
 
 mongoose.model('Station', stationSchema);
-
-
 
 module.exports = {
   stationSchema : stationSchema
