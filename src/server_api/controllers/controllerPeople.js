@@ -45,10 +45,6 @@ module.exports.createUser = function(req, res){
   if (req.body.username || req.body.password || req.body.firstname || req.body.lastname || req.body.phoneNumber){
     Person.findOne({username:req.body.username}, function (err, person) {
       if(!person){
-        console.log(req.body.addressname, req.body.lng, req.body.lat);
-        var addressname = req.body.addressname;
-        var lng = req.body.lng;
-        var lat = req.body.lat;
         Person.create({
           username: req.body.username,
           password: req.body.password,
@@ -58,16 +54,15 @@ module.exports.createUser = function(req, res){
           phoneNumber: req.body.phoneNumber,
           smartphone: req.body.smartphone,
           profession: req.body.profession ? req.body.profession.split(",") : req.body.profession,
-          address: [{
+          address: {
             addressname : req.body.addressname,
-            coords: [parseFloat(lng), parseFloat(lat)]
-          }],
+            coords: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
+          },
           role: req.body.role
         }, function(err, person){
           if(err){
             sendJsonResponse(res, 404, err);
           } else {
-            console.log(person.address);
             sendJsonResponse(res, 201, person);
           }
         });
@@ -86,7 +81,6 @@ module.exports.updateUser = function(req, res){
   } else {
     Person.findOne({username:req.params.username}, function (err, person) {
       if(person){
-        console.log(req.body.addressname, req.body.lng, req.body.lat);
         person.username = req.body.username ? req.body.username : person.username;
         person.password = req.body.password ? req.body.password : person.password;
         person.firstname = req.body.firstname ? req.body.firstname : person.firstname;
@@ -94,7 +88,7 @@ module.exports.updateUser = function(req, res){
         person.mail = req.body.mail ? req.body.mail : person.mail;
         person.phoneNumber = req.body.phoneNumber ? req.body.phoneNumber : person.phoneNumber;
         person.smartphone = req.body.smartphone ? req.body.smartphone : person.smartphone;
-        person.profession = req.body.profession ? req.body.profession.split(",") : req.body.profession;
+        person.profession = req.body.profession ? req.body.profession.split(",") : person.profession;
         person.address = {
           addressname : req.body.addressname ? req.body.addressname : person.address.name,
           coords : [parseFloat(req.body.lng ? req.body.lng : person.address.lng),
