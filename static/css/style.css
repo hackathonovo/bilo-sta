@@ -1,12 +1,14 @@
-body, head {
+html, body, body div{
   margin: 0;
   height: 100%;
   width: 100%;
   font-family: Lato, sans-serif;
+  overflow: hidden;
 }
 
 .card {
   min-width: 400px;
   width: 50%;
   margin: 5% auto 0 auto;
+  height: initial;
 }
