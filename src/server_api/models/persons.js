@@ -7,10 +7,11 @@ var personSchema = new mongoose.Schema({
   firstname: {type: String, required: true},
   lastname: {type: String, required: true},
   mail: String,
+  available: {type: Boolean, "default":true},
   phoneNumber: {type: String, required:true},
   smartphone: Boolean,
   profession: {type:[String], enum:['SPELEOLOG','ALPINIST','VODA','HELIKOPTER']},
-  address: [stationSchema],
+  address: {type: stationSchema},
   role: {type: String, enum:['ROOKIE','ADMIN','RESCUER','INSTRUCTOR']}
 });
 

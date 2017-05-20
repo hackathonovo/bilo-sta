@@ -3,9 +3,28 @@
  */
 var mongoose = require('mongoose');
 var Person = mongoose.model('Person');
-var Location = mongoose.model('Locations')
+var Station = mongoose.model('Station');
+var db = require('../models/db');
+
+var sendJsonResponse = function(res, status, content){
+  res.status(status);
+  res.json(content);
+};
 
 
-module.exports.locations = function (req , res){
+module.exports.getLocations = function (req , res) {
+  locations = [];
+  Person.find(function (err, items) {
+    if(err){
+      sendJsonResponse(res, 400, err);
+    }
+    else{
+      items.forEach(function (value) {
+        locations.push(value.address, value.username)
+        })
+      sendJsonResponse(res, 200, locations)
+    }
+  });
+};
 
-}
+
