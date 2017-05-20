@@ -9,16 +9,23 @@ var sendJsonResponse = function(res, status, content){
   res.json(content);
 };
 
-module.exports.actions = function(req, res) {
+module.exports.getActions = function(req, res) {
   actions = [];
+  trajanjeAkcije = Boolean;
   Action.find(function (err, items) {
     if(err){
       sendJsonResponse(res, 400, err);
     }
     else{
       items.forEach(function (value) {
-      sendJsonResponse(res, 200, locations);
-        actions.push(value.address, value)
+        if(value.dateFinish === undefined) {
+          trajanjeAkcije = true
+          actions.push(value.address, value, "trajanjeAkcije : " + trajanjeAkcije)
+        }
+        else{
+          trajanjeAkcije = false
+          actions.push(value.address, value, "trajanjeAkcije : " + trajanjeAkcije)
+        }
       });
       sendJsonResponse(res, 200, actions);
     }

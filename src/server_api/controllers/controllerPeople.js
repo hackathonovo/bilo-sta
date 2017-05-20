@@ -112,3 +112,23 @@ module.exports.updateUser = function(req, res){
     });
   }
 };
+
+module.exports.availableUsers = function(req, res) {
+  availableUsers = [];
+  Person.find(function (err, person) {
+    if(err){
+      sendJsonResponse(res, 400, err);
+    }
+    else{
+      person.forEach(function (value) {
+        console.log(value.available);
+        if(value.available === true){
+          console.log(value.available);
+          availableUsers.push(value);
+        }
+      });
+      sendJsonResponse(res, 200, availableUsers)
+
+    }
+  });
+};

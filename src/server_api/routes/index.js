@@ -3,7 +3,8 @@ var router = express.Router();
 var controllerPeople = require('../controllers/controllerPeople');
 var controllerLocations = require('../controllers/controllerLocations');
 var controllerActions = require('../controllers/controllerActions');
-var controllerRoles = require('../controllers/controllersRoles')
+var controllerRoles = require('../controllers/controllersRoles');
+
 router.post('/login', controllerPeople.login);
 router.get('/locations', controllerLocations.getLocations);
 router.get('/actions', controllerActions.getActions)
@@ -13,6 +14,7 @@ router.get('/people', controllerPeople.getUsers);
 router.get('/roles', controllerRoles.getRoles);
 router.post('/roles',controllerRoles.setRoles);
 router.post('/actions', controllerActions.createAction);
-
+router.get('/people/available', controllerPeople.availableUsers);
+//router.post('/availability', controllerAvailability.available)
 
 module.exports = router;
