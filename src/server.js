@@ -6,13 +6,16 @@ const next = require('next');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
+var bodyParser = require('body-parser');
+//require('./server_api/models/db');
 
 var routesApi = require('./server_api/routes/index');
 
 app.prepare()
   .then(() => {
     const server = express();
-
+    server.use(bodyParser.json());
+    server.use(bodyParser.urlencoded({ extended: false }));
     server.use('/api', routesApi);
 
     server.get('*', (req, res) => {
