@@ -38,18 +38,22 @@ export default class Login extends Component {
   }
 
   handleClick() {
-    postJSON('api/login', this.state, (err, data) => {
+    postJSON('api/login', this.state, (err, user) => {
       if (err) {
         console.error(err);
         return;
       }
 
-      window.location.href = `/${data.role}`;
+      if (user.ADMIN) {
+        window.location.href = '/administrator';
+      } else {
+        window.location.href = '/home';
+      }
     });
   }
 
   render() {
-    return (<div className="card">
+    return (<div className="card custom-card">
       <div className="card-block">
         <Title className="card-title"><Logo src="/static/img/hgss-logo.png" alt="HGSS" />&nbsp;&nbsp;Organizacija</Title>
         <br />
