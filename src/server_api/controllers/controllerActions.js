@@ -17,12 +17,13 @@ module.exports.actions = function(req, res) {
     }
     else{
       items.forEach(function (value) {
+      sendJsonResponse(res, 200, locations);
         actions.push(value.address, value)
       });
       sendJsonResponse(res, 200, actions);
     }
-  });
-};
+  })
+}
 
 module.exports.createAction = function(req, res){
   if(!req.body.title || !req.body.details || !req.body.lng2 || !req.body.lat2){
