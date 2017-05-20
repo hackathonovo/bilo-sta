@@ -7,7 +7,7 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 var bodyParser = require('body-parser');
-//require('./server_api/models/db');
+require('./server_api/models/db');
 
 var routesApi = require('./server_api/routes/index');
 
