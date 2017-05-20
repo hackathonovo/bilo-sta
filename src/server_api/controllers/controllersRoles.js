@@ -75,5 +75,6 @@ module.exports.setRoles = function(req, res) {
     {
       sendJsonResponse(res, 400, "Please put data")
     }
+
 }
 */

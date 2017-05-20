@@ -3,12 +3,28 @@
  */
 var mongoose = require('mongoose');
 var Action = mongoose.model('Action');
+var Person = mongoose.model('Person');
+
+var metersToKm = function(meters){
+  return meters / 1000;
+};
+
+var kmToMeters = function(km){
+  return km * 1000;
+};
 
 var sendJsonResponse = function(res, status, content){
   res.status(status);
   res.json(content);
 };
-
+var addProfessions = function(req){
+  var professions = req.body.leader.professions;
+  prof = [];
+  for (var i = 0; i < professions.length; ++i){
+    prof.push(professions[i]);
+  }
+  return prof;
+};
 module.exports.getActions = function(req, res) {
   actions = [];
   trajanjeAkcije = Boolean;
@@ -30,39 +46,81 @@ module.exports.getActions = function(req, res) {
       sendJsonResponse(res, 200, actions);
     }
   })
-}
+};
 
 module.exports.createAction = function(req, res){
-  if(!req.body.title || !req.body.details || !req.body.lng2 || !req.body.lat2){
+  if(!req.body.title || !req.body.details || !req.body.coords[0] || !req.body.coords[1]){
     sendJsonResponse(res, 400, {"message":"title, details, coords are required"});
   } else {
+    var lng1 = req.body.leader.address.coords[0];
+    var lat1 = req.body.leader.address.coords[1];
+    var lng_action = req.body.coords[0];
+    var lat_action = req.body.coords[1];
+
+    var numPeople = parseInt(req.body.personNumber);
+    var point = {
+      type: "Point",
+      coordinates: [parseFloat(lng_action), parseFloat(lat_action)]
+    };
+    var geoOptions = {
+      spherical: true,
+      num: numPeople * 2,
+    };
+
     Action.create({
       title : req.body.title,
       details : req.body.details,
       professions : req.body.profession ? req.body.profession.split(",") : req.body.profession,
       leader : {
-        username: req.body.username,
-        password: req.body.password,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        mail: req.body.mail,
-        phoneNumber: req.body.phoneNumber,
-        smartphone: req.body.smartphone,
-        profession: req.body.profession ? req.body.profession.split(",") : req.body.profession,
+        username: req.body.leader.username,
+        password: req.body.leader.password,
+        firstname: req.body.leader.firstname,
+        lastname: req.body.leader.lastname,
+        mail: req.body.leader.mail,
+        phoneNumber: req.body.leader.phoneNumber,
+        smartphone: req.body.leader.smartphone,
+        profession: req.body.leader.profession,
         address: {
-          addressname : req.body.addressname,
-          coords: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
+          addressname : req.body.leader.address.addressname,
+          coords: [parseFloat(lng1), parseFloat(lat1)]
         },
-        role: req.body.role,
-        available: req.body.available
+        role: req.body.leader.role,
+        available: req.body.leader.available,
       },
-      coords : [parseFloat(req.body.lng2), parseFloat(req.body.lat2)],
+      coords : [parseFloat(lng_action), parseFloat(lat_action)],
       personNumber: req.body.personNumber
     }, function(err, action){
-      if(err){
+      if(!action){
+        sendJsonResponse(res, 400, {"message":"action not created"});
+      } else if(err){
         sendJsonResponse(res, 404, err);
       } else {
-        sendJsonResponse(res, 200, action);
+        Person.geoNear(point, geoOptions, function(err, results, stats){
+          var people = [];
+          if(err){
+            sendJsonResponse(res, 404, err);
+          } else {
+            results.forEach(function(doc){
+              people.push(new Person({
+                username: doc.obj.username,
+                password: doc.obj.password,
+                firstname: doc.obj.firstname,
+                lastname: doc.obj.lastname,
+                mail: doc.obj.mail,
+                phoneNumber: doc.obj.phoneNumber,
+                smartphone: doc.obj.smartphone,
+                profession: doc.obj.profession,
+                address: {
+                  addressname : doc.obj.address.addressname,
+                  coords: [parseFloat(doc.obj.address.coords[0]), parseFloat(doc.obj.address.coords[1])]
+                },
+                role: doc.obj.role,
+                available: doc.obj.available
+              }));
+            });
+            sendJsonResponse(res, 200, people);
+          }
+        });
       }
     });
   }

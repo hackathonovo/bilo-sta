@@ -1,14 +1,25 @@
-html, body, body div{
+html, body {
+  overflow: hidden;
+}
+
+html, body, body div {
   margin: 0;
   height: 100%;
   width: 100%;
   font-family: Lato, sans-serif;
-  overflow: hidden;
 }
 
-.card {
+.custom-card {
   min-width: 400px;
   width: 50%;
   margin: 5% auto 0 auto;
   height: initial;
+}
+
+.height-fix {
+  height: initial;
+}
+
+.cursor {
+  cursor: pointer;
 }

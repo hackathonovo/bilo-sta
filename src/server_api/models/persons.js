@@ -12,11 +12,12 @@ var personSchema = new mongoose.Schema({
   available: {type: Boolean, "default":true},
   phoneNumber: {type: String, required:true},
   smartphone: Boolean,
-  profession: {type:[String], enum:['SPELEOLOG','ALPINIST','VODA','HELIKOPTER']},
+  profession: {type:[String], enum:['speolog','alpinist','spasavatelj_na_vodi','helikoptersko_spasavanje', 'sve']},
   address: {type: stationSchema},
   role: {type: [roleSchema],}
 });
 
+//personSchema.ensureIndex({"address.coords": "2dsphere"});
 mongoose.model('Person', personSchema);
 
 module.exports = {

@@ -7,7 +7,7 @@ var controllerRoles = require('../controllers/controllersRoles');
 
 router.post('/login', controllerPeople.login);
 router.get('/locations', controllerLocations.getLocations);
-router.get('/actions', controllerActions.getActions)
+router.get('/actions', controllerActions.getActions);
 router.post('/people', controllerPeople.createUser);
 router.post('/people/:username', controllerPeople.updateUser);
 router.get('/people', controllerPeople.getUsers);

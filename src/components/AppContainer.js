@@ -15,14 +15,20 @@ export default class AppContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = { item: 'Raspoloživost' };
+
+    this.changeSidebarItem = this.changeSidebarItem.bind(this);
+  }
+
+  changeSidebarItem(item) {
+    this.setState({ ...this.state, item });
   }
 
   render() {
     return (
-      <div>
-        <Sidebar items={adminItems} />
-        <Content />
+      <div id="main">
+        <Sidebar items={adminItems} click={this.changeSidebarItem} selected={this.state.item} />
+        <Content view={this.state.item} />
       </div>
     );
   }

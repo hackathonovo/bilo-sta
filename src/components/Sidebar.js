@@ -5,8 +5,8 @@ import Item from './Item';
 
 const SidebarContainer = styled.div`
   min-height: 100%;
-  width: 20%;
-  min-width: 50px;
+  width: 15%;
+  min-width: 100px;
   float: left;
 `;
 
@@ -15,10 +15,23 @@ export default class Sidebar extends Component {
     super(props);
   }
 
+  renderSidebarItems() {
+    const items = Object.keys(this.props.items).map(item => {
+      if (this.props.selected === item) {
+        // TODO mini items
+        //return <MiniItem click={this.props.click} key={item} subItems={this.props.items[item].subItems} icon={this.props.items[item].icon}>{item}></MiniItem>
+      }
+
+      return <Item click={this.props.click} key={item} subItems={this.props.items[item].subItems} icon={this.props.items[item].icon}>{item}</Item>
+    });
+
+    return items;
+  }
+
   render() {
     return (
       <SidebarContainer>
-        {Object.keys(this.props.items).map(item => <Item key={item} subItems={this.props.items[item].subItems} icon={this.props.items[item].icon}>{item}</Item>)}
+        {this.renderSidebarItems()}
       </SidebarContainer>
     );
   }

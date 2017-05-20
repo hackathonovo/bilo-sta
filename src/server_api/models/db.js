@@ -14,6 +14,8 @@ if (process.env.NODE_ENV === 'production'){
 // mainDB.on('connected', ...)
 mongoose.connect(dbURI);
 
+mongoose.connection.collections['people'].ensureIndex({"address.coords":"2dsphere"});
+
 mongoose.connection.on('connected', function(){
   console.log('Mongoose connected to ' + dbURI);
 });
