@@ -20,14 +20,14 @@ module.exports.getUsers = function(req, res){
 
 module.exports.login = function(req, res){
   if (req.body.username || req.body.password){
-    var username = req.body.username;
-    var password = req.body.password;
-    Person.findOne({username:username}, function (err, person) {
-      if (err){
+    Person.findOne({username: req.body.username}, function (err, person) {
+      if (!person){
+        sendJsonResponse(res, 400, {"message":"username not found"})
+      } else if (err){
         sendJsonResponse(res, 400, err);
       } else {
         console.log(person);
-        if (password === person.password){
+        if (req.body.password === person.password){
           sendJsonResponse(res, 200, person);
         } else {
           sendJsonResponse(res, 400, {"message":"Invalid password"});
@@ -58,7 +58,8 @@ module.exports.createUser = function(req, res){
             addressname : req.body.addressname,
             coords: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
           },
-          role: req.body.role
+          role: req.body.role,
+          available: req.body.available
         }, function(err, person){
           if(err){
             sendJsonResponse(res, 404, err);
@@ -95,6 +96,7 @@ module.exports.updateUser = function(req, res){
             parseFloat(req.body.lat ? req.body.lat : person.address.lat)]
         };
         person.role = req.body.role ? req.body.role : person.role;
+        person.available = req.body.available ? req.body.available : person.available;
         person.save(function(err, person){
           if(err){
             sendJsonResponse(res, 404, err);
