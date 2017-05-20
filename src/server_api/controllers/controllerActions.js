@@ -29,28 +29,33 @@ module.exports.createAction = function(req, res){
   if(!req.body.title || !req.body.details || !req.body.lng2 || !req.body.lat2){
     sendJsonResponse(res, 400, {"message":"title, details, coords are required"});
   } else {
+    var lng1 = req.body.action.leader.address.coords[0];
+    var lat1 = req.body.action.leader.address.coords[1];
+    var lng2 = req.body.action.coords[0];
+    var lat2 = req.body.action.coords[1];
+
     Action.create({
-      title : req.body.title,
-      details : req.body.details,
-      professions : req.body.profession ? req.body.profession.split(",") : req.body.profession,
+      title : req.body.action.title,
+      details : req.body.action.details,
+      professions : req.body.action.profession ? req.body.profession.split(",") : req.body.profession,
       leader : {
-        username: req.body.username,
-        password: req.body.password,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        mail: req.body.mail,
-        phoneNumber: req.body.phoneNumber,
-        smartphone: req.body.smartphone,
-        profession: req.body.profession ? req.body.profession.split(",") : req.body.profession,
+        username: req.body.action.leader.username,
+        password: req.body.action.leader.password,
+        firstname: req.body.action.leader.firstname,
+        lastname: req.body.action.leader.lastname,
+        mail: req.body.action.leader.mail,
+        phoneNumber: req.body.action.leader.phoneNumber,
+        smartphone: req.body.action.leader.smartphone,
+        profession: req.body.action.leader.profession ? req.body.action.leader.profession.split(",") : req.body.action.leader.profession,
         address: {
-          addressname : req.body.addressname,
-          coords: [parseFloat(req.body.address.coords[0]), parseFloat(req.body.address.coords[1])]
+          addressname : req.body.action.leader.address.addressname,
+          coords: [parseFloat(lng1), parseFloat(lat1)]
         },
-        role: req.body.role,
-        available: req.body.available
+        role: req.body.action.leader.role,
+        available: req.body.action.leader.available
       },
-      coords : [parseFloat(req.body.coords[0]), parseFloat(req.body.coords[1])],
-      personNumber: req.body.personNumber
+      coords : [parseFloat(lng2), parseFloat(lat2)],
+      personNumber: req.body.action.personNumber
     }, function(err, action){
       if(err){
         sendJsonResponse(res, 404, err);
