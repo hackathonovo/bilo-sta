@@ -2,6 +2,7 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Person = mongoose.model('Person');
 var Station = mongoose.model('Station');
+var NodeGeocoder = require('node-geocoder');
 
 var sendJsonResponse = function(res, status, content){
   res.status(status);
@@ -43,35 +44,46 @@ module.exports.login = function(req, res){
 
 module.exports.createUser = function(req, res){
   if (req.body.username || req.body.password || req.body.firstname || req.body.lastname || req.body.phoneNumber){
-    Person.findOne({username:req.body.username}, function (err, person) {
-      if(!person){
-        Person.create({
-          username: req.body.username,
-          password: req.body.password,
-          firstname: req.body.firstname,
-          lastname: req.body.lastname,
-          mail: req.body.mail,
-          phoneNumber: req.body.phoneNumber,
-          smartphone: req.body.smartphone,
-          profession: req.body.profession ? req.body.profession.split(",") : req.body.profession,
-          address: {
-            addressname : req.body.addressname,
-            coords: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
-          },
-          role: req.body.role,
-          available: req.body.available
-        }, function(err, person){
-          if(err){
-            sendJsonResponse(res, 404, err);
-          } else {
-            sendJsonResponse(res, 201, person);
-          }
-        });
-      } else if (err){
-        sendJsonResponse(res, 400, err);
-      } else {
-        sendJsonResponse(res, 400, {"message":"Username already exists!"});
-      }
+
+    var options = {
+      provider: 'google',
+    };
+    var geocoder = NodeGeocoder(options);
+    geocoder.geocode(req.body.addressname, function(err, result){
+      var lng = result[0].longitude;
+      var lat = result[0].latitude;
+      Person.findOne({username:req.body.username}, function (err, person) {
+        if(!person){
+          Person.create({
+            username: req.body.username,
+            password: req.body.password,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            mail: req.body.mail,
+            phoneNumber: req.body.phoneNumber,
+            smartphone: req.body.smartphone,
+            profession: req.body.profession ? req.body.profession.split(",") : req.body.profession,
+            address: {
+              addressname : req.body.addressname,
+              coords: [parseFloat(lng), parseFloat(lat)]
+            },
+            role: req.body.role,
+            available: req.body.available
+          }, function(err, person){
+            if(!person) {
+              sendJsonResponse(res, 400, {"message":"person undefined"})
+            } else if(err){
+              sendJsonResponse(res, 404, err);
+            } else {
+              sendJsonResponse(res, 201, person);
+            }
+          });
+        } else if (err){
+          sendJsonResponse(res, 400, err);
+        } else {
+          sendJsonResponse(res, 400, {"message":"Username already exists!"});
+        }
+      });
     });
   }
 };
