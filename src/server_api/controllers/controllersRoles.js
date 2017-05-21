@@ -47,16 +47,16 @@ module.exports.setRoles = function (req, res) {
 }
 
 module.exports.getRoles = function (req , res) {
-  pomList = [];
+  rolesNew = [];
   Roles.find({},function (err, items) {
     if(err){
       sendJsonResponse(res, 400, err);
     }
     else{
       items.forEach(function (value) {
-        roles.push(value.rolesList)
+        rolesNew.push(value.rolesList)
       })
-      sendJsonResponse(res, 200, roles)
+      sendJsonResponse(res, 200, rolesNew)
     }
   });
 };
