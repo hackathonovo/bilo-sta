@@ -22,7 +22,6 @@ module.exports.setRoles = function (req, res) {
     }
     else{
       items.forEach(function (value) {
-
           value.rolesList.push(req.body.rolesList);
           value.save(function (err, value) {
             if(err){
@@ -51,30 +50,3 @@ module.exports.getRoles = function (req , res) {
     }
   });
 };
-/*
-module.exports.setRoles = function(req, res) {
-  if (req.body.username || req.body.role) {
-    Person.findOne({username: req.body.username}, function (err, person) {
-      if (person) {
-        person.role = req.body.role
-        person.save(function(err, person){
-          if(err){
-            sendJsonResponse(res, 404, err);
-          } else {
-            sendJsonResponse(res, 200, person);
-          }
-        });
-
-      }
-      else {
-        sendJsonResponse(res, 400, {"message": "Username doesn't exist!"});
-      }
-    })
-  }
-  else
-    {
-      sendJsonResponse(res, 400, "Please put data")
-    }
-
-}
-*/
