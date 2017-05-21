@@ -153,6 +153,22 @@ module.exports.updateAction = function(req, res){
   }
 };
 
+module.exports.finishAction = function (req, res) {
+  Action.findOne({_id:req.params.id}, function (err, action) {
+    if(action){
+      action.datumFinish = Date.now()
+      action.save(function (err, action) {
+        if (err) {
+          sendJsonResponse(res, 404, err);
+        } else {
+          sendJsonResponse(res, 200, action);
+        }
+
+      })
+    }
+  })
+};
+
 module.exports.addRescuer = function(req, res){
   if(!req.body.username || !req.body.title){
     sendJsonResponse(res, 400, {"message":"username and title required"});
