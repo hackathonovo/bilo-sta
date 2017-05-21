@@ -151,3 +151,32 @@ module.exports.updateAction = function(req, res){
     });
   }
 };
+
+module.exports.addRescuer = function(req, res){
+  if(!req.body.username){
+    sendJsonResponse(res, 400, {"message":"username required"});
+  } else {
+    Person.findOne({username: req.body.username}, function(err, person){
+      if(!person){
+        sendJsonResponse(res, 400, {"message":"person not found"})
+      }else if(err){
+        sendJsonResponse(res, 404, err);
+      }else{
+
+      }
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
