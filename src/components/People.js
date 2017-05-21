@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ListItem from './ListItem';
 import { getJSON, postJSON } from '../helpers';
 import Item from './Item';
+import SearchBar from './SearchBar';
 
 const Loading = styled.img`
   height: 100px;
@@ -11,6 +12,7 @@ const Loading = styled.img`
 `;
 
 const ListContainer = styled.div`
+  text-align: center
 `;
 
 const Title = styled.h1`
@@ -82,7 +84,7 @@ export default class People extends Component {
       <ListContainer>
         <Title>Spašavatelji</Title>
         <Button className="btn btn-info" onClick={this.addPerson} ><Icon alt="plus" src="static/img/plus.png" />&nbsp;&nbsp;Novi spasitelj</Button>
-        <br /><br />
+        <br /><br /><SearchBar/><br /><br />
         <div id="people" role="tablist" aria-multiselectable="true">
           {this.state.people.map(p => <ListItem key={p._id} data={p} condensed={false} />)}
         </div>

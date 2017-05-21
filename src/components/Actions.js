@@ -3,8 +3,10 @@ import styled from 'styled-components';
 
 import { getJSON } from '../helpers';
 import ActionItem from './ActionItem';
+import SearchBar from './SearchBar';
 
 const ListContainer = styled.div`
+  text-align: center;
 `;
 
 const Title = styled.h1`
@@ -12,7 +14,6 @@ const Title = styled.h1`
   font-size: 40px;
   font-weight: 300;
   width: calc(100% - 200px);
-  display: inline-block;
 `;
 
 const Loading = styled.img`
@@ -47,7 +48,7 @@ export default class Actions extends Component {
     return (
       <ListContainer>
         <Title>Akcije</Title>
-        <br /><br />
+        <br /><SearchBar/><br /><br />
         <div id="people" role="tablist" aria-multiselectable="true">
           {this.state.actions.map(p => <ActionItem key={p._id} data={p} />)}
         </div>
