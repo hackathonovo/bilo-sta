@@ -36,11 +36,11 @@ module.exports.getActions = function(req, res) {
       items.forEach(function (value) {
         if(value.dateFinish === undefined) {
           trajanjeAkcije = true
-          actions.push(value, "trajanjeAkcije : " + trajanjeAkcije)
+          actions.push(value)
         }
         else{
           trajanjeAkcije = false
-          actions.push(value, "trajanjeAkcije : " + trajanjeAkcije)
+          actions.push(value)
         }
       });
       sendJsonResponse(res, 200, actions);
