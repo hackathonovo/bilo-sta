@@ -49,7 +49,7 @@ module.exports.createUser = function(req, res){
       provider: 'google',
     };
     var geocoder = NodeGeocoder(options);
-    geocoder.geocode(req.body.addressname, function(err, result){
+    geocoder.geocode(req.body.address.addressname, function(err, result){
       var lng = result[0].longitude;
       var lat = result[0].latitude;
       Person.findOne({username:req.body.username}, function (err, person) {
@@ -93,6 +93,7 @@ module.exports.updateUser = function(req, res){
     sendJsonResponse(res, 400, {"message":":username required"});
   } else {
     Person.findOne({username:req.params.username}, function (err, person) {
+      console.log(person);
       if(person){
         person.username = req.body.username ? req.body.username : person.username;
         person.password = req.body.password ? req.body.password : person.password;
@@ -110,7 +111,9 @@ module.exports.updateUser = function(req, res){
         person.role = req.body.role ? req.body.role : person.role;
         person.available = req.body.available ? req.body.available : person.available;
         person.save(function(err, person){
-          if(err){
+          if(!person){
+            sendJsonResponse(res, 400, {"message":"person undefined"})
+          }else if(err){
             sendJsonResponse(res, 404, err);
           } else {
             sendJsonResponse(res, 200, person);
