@@ -43,10 +43,11 @@ module.exports.login = function(req, res){
 };
 
 module.exports.createUser = function(req, res){
-  if (req.body.username || req.body.password || req.body.firstname || req.body.lastname || req.body.phoneNumber){
-
+  if (!req.body.username || !req.body.password || !req.body.firstname || !req.body.lastname){
+    sendJsonResponse(res, 400, {"message":"required some fields.."});
+  } else {
     var options = {
-      provider: 'google',
+      provider: 'google'
     };
     var geocoder = NodeGeocoder(options);
     geocoder.geocode(req.body.address.addressname, function(err, result){
@@ -62,9 +63,9 @@ module.exports.createUser = function(req, res){
             mail: req.body.mail,
             phoneNumber: req.body.phoneNumber,
             smartphone: req.body.smartphone,
-            profession: req.body.profession ? req.body.profession.split(",") : req.body.profession,
+            profession: req.body.profession,
             address: {
-              addressname : req.body.addressname,
+              addressname : req.body.address.addressname,
               coords: [parseFloat(lng), parseFloat(lat)]
             },
             role: req.body.role,
