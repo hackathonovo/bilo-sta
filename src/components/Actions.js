@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import styled from 'styled-components';
 
-import ListItem from './ListItem';
 import { getJSON } from '../helpers';
+import ActionItem from './ActionItem';
 
 const ListContainer = styled.div`
   text-align: center;
@@ -23,7 +23,7 @@ const Loading = styled.img`
   margin-left: calc(50% - 100px);
 `;
 
-export default class Availability extends Component {
+export default class Actions extends Component {
   constructor(props) {
     super(props);
 
@@ -31,29 +31,29 @@ export default class Availability extends Component {
   }
 
   componentDidMount() {
-    getJSON('/api/people/available', (err, available) => {
+    getJSON('/api/actions', (err, actions) => {
       if (err) {
         console.error(err);
         return;
       }
 
-      this.setState({ ...this.state, available });
+      this.setState({ ...this.state, actions });
     });
   }
 
   render() {
-    console.log(this.state.available);
+    console.log(this.state.actions);
 
-    if (!this.state.available) {
+    if (!this.state.actions) {
       return <Loading alt="Loading" src="static/img/spinner.gif" />;
     }
 
     return (
       <ListContainer>
-        <Title>Trenutno dostupni spasitelji</Title>
+        <Title>Akcije</Title>
         <br /><br />
         <div id="people" role="tablist" aria-multiselectable="true">
-          {this.state.available.map(p => <ListItem key={p._id} data={p} condensed={true} />)}
+          {this.state.actions.map(p => <ActionItem key={p._id} data={p} />)}
         </div>
       </ListContainer>
     );

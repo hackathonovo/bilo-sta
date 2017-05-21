@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Availability from './Availability';
 import People from './People';
+import Actions from './Actions';
 
 const ContentWrapper = styled.div`
   margin-left: 15%;
@@ -26,9 +27,9 @@ export default class Content extends Component {
       case 'Spasitelj':
         return <People />;
       case 'Akcije':
-        return <div>Akcije</div>;
+        return <Actions />;
       case 'Šifrarnici':
-        return <div>Šifrarnici</div>;
+        return <div />;
       default: return <Availability />;
     }
   }

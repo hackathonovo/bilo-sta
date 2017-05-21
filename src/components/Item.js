@@ -9,7 +9,7 @@ const ItemWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:hover {
     background-color: #1e656d;
     color: white;
@@ -19,12 +19,12 @@ const ItemWrapper = styled.div`
 const Name = styled.div`
   font-size: larger;
   height: initial;
-  text-align: center;
+ margin-left: 30px;
 `;
 
 const Icon = styled.img`
   float: left;
-  max-width: 50px;
+  max-width: 30px;
   margin-left: 30px;
 `;
 

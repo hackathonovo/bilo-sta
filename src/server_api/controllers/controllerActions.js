@@ -17,14 +17,7 @@ var sendJsonResponse = function(res, status, content){
   res.status(status);
   res.json(content);
 };
-var addProfessions = function(req){
-  var professions = req.body.leader.professions;
-  prof = [];
-  for (var i = 0; i < professions.length; ++i){
-    prof.push(professions[i]);
-  }
-  return prof;
-};
+
 module.exports.getActions = function(req, res) {
   actions = [];
   trajanjeAkcije = Boolean;
@@ -127,3 +120,63 @@ module.exports.createAction = function(req, res){
     });
   }
 };
+
+module.exports.updateAction = function(req, res){
+  if(!req.params._id){
+    sendJsonResponse(res, 400, {"message":":_id required"});
+  } else {
+    Action.findOne({_id:req.params._id}, function (err, action) {
+      if(action){
+        action.title = req.body.title ? req.body.title : action.title;
+        action.details = req.body.details ? req.body.details : action.details;
+        action.persons = req.body.persons ? req.body.persons : action.persons ;
+        action.professions = req.body.professions ? req.body.professions : action.professions;
+        action.leader = req.body.leader ? req.body.leader : action.leader;
+        action.coords = req.body.coords ? req.body.coords : action.coords;
+        action.personNumber = req.body.personNumber ? req.body.personNumber : action.personNumber;
+        action.save(function(err, action){
+          if(!action){
+            sendJsonResponse(res, 400, {"message":"action undefined"});
+          } else if(err){
+            sendJsonResponse(res, 404, err);
+          } else {
+            sendJsonResponse(res, 200, action);
+          }
+        });
+      } else if (err){
+        sendJsonResponse(res, 400, err);
+      } else {
+        sendJsonResponse(res, 400, {"message":"action not found"});
+      }
+    });
+  }
+};
+
+module.exports.addRescuer = function(req, res){
+  if(!req.body.username){
+    sendJsonResponse(res, 400, {"message":"username required"});
+  } else {
+    Person.findOne({username: req.body.username}, function(err, person){
+      if(!person){
+        sendJsonResponse(res, 400, {"message":"person not found"})
+      }else if(err){
+        sendJsonResponse(res, 404, err);
+      }else{
+
+      }
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+

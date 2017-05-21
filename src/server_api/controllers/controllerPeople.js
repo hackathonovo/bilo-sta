@@ -43,6 +43,8 @@ module.exports.login = function(req, res){
 };
 
 module.exports.createUser = function(req, res){
+  console.log(req.body);
+
   if (!req.body.username || !req.body.password || !req.body.firstname || !req.body.lastname){
     sendJsonResponse(res, 400, {"message":"required some fields.."});
   } else {
@@ -94,7 +96,6 @@ module.exports.updateUser = function(req, res){
     sendJsonResponse(res, 400, {"message":":username required"});
   } else {
     Person.findOne({username:req.params.username}, function (err, person) {
-      console.log(person);
       if(person){
         person.username = req.body.username ? req.body.username : person.username;
         person.password = req.body.password ? req.body.password : person.password;
@@ -103,11 +104,9 @@ module.exports.updateUser = function(req, res){
         person.mail = req.body.mail ? req.body.mail : person.mail;
         person.phoneNumber = req.body.phoneNumber ? req.body.phoneNumber : person.phoneNumber;
         person.smartphone = req.body.smartphone ? req.body.smartphone : person.smartphone;
-        person.profession = req.body.profession ? req.body.profession.split(",") : person.profession;
+        person.profession = req.body.profession ? req.body.profession : person.profession;
         person.address = {
-          addressname : req.body.addressname ? req.body.addressname : person.address.name,
-          coords : [parseFloat(req.body.lng ? req.body.lng : person.address.lng),
-            parseFloat(req.body.lat ? req.body.lat : person.address.lat)]
+          addressname : req.body.address.addressname ? req.body.address.addressname : person.address.addressname
         };
         person.role = req.body.role ? req.body.role : person.role;
         person.available = req.body.available ? req.body.available : person.available;
@@ -117,7 +116,22 @@ module.exports.updateUser = function(req, res){
           }else if(err){
             sendJsonResponse(res, 404, err);
           } else {
-            sendJsonResponse(res, 200, person);
+            var options = {
+              provider: 'google'
+            };
+            var geocoder = NodeGeocoder(options);
+            geocoder.geocode(person.address.addressname, function(err, result){
+              var lng = result[0].longitude;
+              var lat = result[0].latitude;
+              person.address.coords = [lng, lat];
+              person.save(function(err, person){
+                if(err){
+                  sendJsonResponse(res, 404, err);
+                } else {
+                  sendJsonResponse(res, 200, person);
+                }
+              });
+            });
           }
         });
       } else if (err){
