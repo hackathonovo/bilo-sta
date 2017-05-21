@@ -44,7 +44,7 @@ export default class Login extends Component {
         return;
       }
 
-      if (user.ADMIN) {
+      if (user.Administrator) {
         window.location.href = '/administrator';
       } else {
         window.location.href = '/home';
@@ -55,7 +55,7 @@ export default class Login extends Component {
   render() {
     return (<div className="card custom-card">
       <div className="card-block">
-        <Title className="card-title"><Logo src="/static/img/hgss-logo.png" alt="HGSS" />&nbsp;&nbsp;Organizacija</Title>
+        <Title className="card-title"><Logo src="/static/img/hgss-logo.png" alt="HGSS" />&nbsp;&nbsp;Administracija</Title>
         <br />
         <div className="card-text">
           <Input type="text" placeholder="Korisničko ime" value={this.state.username} onChange={this.handleUsernameChange} />
