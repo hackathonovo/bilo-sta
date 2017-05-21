@@ -168,7 +168,7 @@ module.exports.getAvailability = function (req, res) {
       } else if(err){
         sendJsonResponse(res, 404, err);
       } else{
-        sendJsonResponse(res, 200, person.available);
+        sendJsonResponse(res, 200, {available: person.available});
       }
     });
   }
