@@ -22,7 +22,6 @@ module.exports.setRoles = function (req, res) {
     }
     else{
       items.forEach(function (value) {
-
           value.rolesList.push(req.body.rolesList);
           value.save(function (err, value) {
             if(err){
