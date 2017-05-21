@@ -19,7 +19,7 @@ const FieldContainer = styled.div`
   width: 100%;
 `;
 
-const Input = styled.input`
+const Input = styled.textarea`
   width: calc(100% - 150px);
 `;
 
@@ -60,11 +60,19 @@ export default class ActionItem extends Component {
   }
 
   handleInputChange(e) {
-    console.log(e.target.value);
+    const newState = { ...this.state };
+    newState.data.details = e.target.value;
+
+    this.setState(newState);
   }
 
   saveChanges(id) {
-    console.log('saving', id);
+    postJSON(`api/action/${id}`, this.state.data, (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
   }
 
   renderAcordion(data) {
@@ -74,7 +82,7 @@ export default class ActionItem extends Component {
           <div className="card-block">
             <FieldContainer>
               <Label>Opis:&nbsp;</Label>
-              <Input name="details" type="text-box"/>
+              <Input name="details" value={data.details} onChange={this.handleInputChange} />
             </FieldContainer>
             <Button className="btn btn-success" onClick={e => this.saveChanges(data._id)} ><Icon alt="save" src="static/img/save.png" />&nbsp;&nbsp;Spremi promjene</Button>
           </div>

@@ -8,7 +8,6 @@ const ItemWrapper = styled.div`
   border-bottom: 1px solid #a5a5a5;
   display: flex;
   align-items: center;
-  justify-content: center;
 
   &:hover {
     background-color: #1e656d;
@@ -19,11 +18,10 @@ const ItemWrapper = styled.div`
 const Name = styled.div`
   font-size: larger;
   height: initial;
- margin-left: 30px;
+  margin-left: 30px;
 `;
 
 const Icon = styled.img`
-  float: left;
   max-width: 30px;
   margin-left: 30px;
 `;

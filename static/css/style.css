@@ -1,9 +1,5 @@
 html, body {
   overflow: hidden;
-}
-
-html, body, body div {
-  margin: 0;
   height: 100%;
   width: 100%;
   font-family: Lato, sans-serif;
@@ -26,4 +22,14 @@ html, body, body div {
 
 .narrow {
   width: inital;
+}
+
+#map {
+  width: 100%;
+  height: calc(100vh - 104px);
+}
+
+#map div {
+  height: initial;
+  width: initial;
 }

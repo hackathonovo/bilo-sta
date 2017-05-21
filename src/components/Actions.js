@@ -5,16 +5,14 @@ import { getJSON } from '../helpers';
 import ActionItem from './ActionItem';
 
 const ListContainer = styled.div`
-  text-align: center;
 `;
 
 const Title = styled.h1`
   text-align: left;
   font-size: 40px;
   font-weight: 300;
-  padding-bottom: 20px;
-  weight: calc(100% - 150px);
-  float: left;
+  width: calc(100% - 200px);
+  display: inline-block;
 `;
 
 const Loading = styled.img`
@@ -42,8 +40,6 @@ export default class Actions extends Component {
   }
 
   render() {
-    console.log(this.state.actions);
-
     if (!this.state.actions) {
       return <Loading alt="Loading" src="static/img/spinner.gif" />;
     }

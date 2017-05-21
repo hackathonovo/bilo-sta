@@ -11,16 +11,14 @@ const Loading = styled.img`
 `;
 
 const ListContainer = styled.div`
-  text-align: center;
 `;
 
 const Title = styled.h1`
   text-align: left;
   font-size: 40px;
   font-weight: 300;
-  padding-bottom: 20px;
-  weight: calc(100% - 150px);
-  float: left;
+  width: calc(100% - 200px);
+  display: inline-block;
 `;
 
 const Icon = styled.img`
@@ -76,8 +74,6 @@ export default class People extends Component {
   }
 
   render() {
-    console.log(this.state);
-
     if (!this.state.people) {
       return <ListContainer><Loading alt="Loading" src="static/img/spinner.gif" /></ListContainer>;
     }
