@@ -46,7 +46,7 @@ export default class Availability extends Component {
 
     return (
       <ListContainer>
-        <Title>Trenutno dostupni spasitelji</Title>
+        <Title>Trenutno dostupni spašavatelji</Title>
         <br /><br />
         <div id="people" role="tablist" aria-multiselectable="true">
           {this.state.available.map(p => <ListItem key={p._id} data={p} condensed={true} />)}

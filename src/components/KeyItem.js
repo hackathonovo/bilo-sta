@@ -47,10 +47,9 @@ const Button = styled.button`
   text-align: center;
   float: right;
   margin-bottom: 20px;
-  margin-left: 20px;
 `;
 
-export default class ActionItem extends Component {
+export default class KeyItem extends Component {
   constructor(props) {
     super(props);
 
@@ -61,26 +60,15 @@ export default class ActionItem extends Component {
   }
 
   handleInputChange(e) {
-    const newState = { ...this.state };
-    newState.data.details = e.target.value;
-
-    this.setState(newState);
+    this.setState({ ...this.state, data: e.target.value });
   }
 
   saveChanges(id) {
-    postJSON(`api/action/${id}`, this.state.data, (err, data) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-    });
-  }
+    console.log({ rolesList: id });
 
-  finishAction(id) {
-    postJSON(`api/action/finish/${id}`, (err, data) => {
+    postJSON('api/roles', { rolesList: id }, (err, data) => {
       if (err) {
         console.error(err);
-        return;
       }
     });
   }
@@ -88,14 +76,13 @@ export default class ActionItem extends Component {
   renderAcordion(data) {
     if (!this.props.condensed) {
       return (
-        <div id={`colapse-${data._id}`} className="collapse" role="tabpanel" aria-labelledby={data._id}>
+        <div id={`colapse-${data}`} className="collapse" role="tabpanel" aria-labelledby={data}>
           <div className="card-block">
             <FieldContainer>
-              <Label>Opis:&nbsp;</Label>
-              <Input name="details" value={data.details} onChange={this.handleInputChange} />
-              <Button className="btn btn-success" onClick={e => this.saveChanges(data._id)} ><Icon alt="save" src="static/img/save.png" />&nbsp;&nbsp;Spremi</Button>
-              <Button className="btn btn-warning" onClick={e => this.finishAction(data._id)}><Icon alt="save" src="static/img/finish.png" />&nbsp;&nbsp;Završi akciju</Button>
+              <Label>Uloga:&nbsp;</Label>
+              <Input name="role" value={data} onChange={this.handleInputChange} />
             </FieldContainer>
+            <Button className="btn btn-success" onClick={e => this.saveChanges(data)} ><Icon alt="save" src="static/img/save.png" />&nbsp;&nbsp;Spremi</Button>
           </div>
         </div>);
     }
@@ -104,14 +91,12 @@ export default class ActionItem extends Component {
   render() {
     const data = this.state.data;
 
-    console.log(data);
-
     return (
       <div className="card height-fix cursor">
-        <HiddenLink data-toggle="collapse" data-parent="#people" href={`#colapse-${data._id}`} aria-expanded="true" aria-controls={`colapse-${data._id}`}>
-          <div className="card-header" role="tab" id={data._id}>
+        <HiddenLink data-toggle="collapse" data-parent="#people" href={`#colapse-${data}`} aria-expanded="true" aria-controls={`colapse-${data}`}>
+          <div className="card-header" role="tab" id={data}>
             <h5 className="mb-0">
-              {data.title}
+              {data}
             </h5>
           </div>
         </HiddenLink>

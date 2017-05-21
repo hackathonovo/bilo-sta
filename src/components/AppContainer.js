@@ -2,11 +2,12 @@ import { Component } from 'react';
 
 import Sidebar from './Sidebar';
 import Content from './Content';
+import Header from './Header';
 
 const adminItems = {
   Raspoloživost: { subItems: ['Novi unos', 'Pregled'], icon: 'availability.png' },
-  Lokacija: { subItems: ['Novi unos', 'Pregled'], icon: 'location.png' },
-  Spasitelj: { subItems: ['Novi unos', 'Uređivanje'], icon: 'profile.png' },
+  Prebivališta: { subItems: ['Novi unos', 'Pregled'], icon: 'location.png' },
+  Spašavatelj: { subItems: ['Novi unos', 'Uređivanje'], icon: 'profile.png' },
   Akcije: { subItems: ['Uređivanje', 'Pregled'] , icon: 'action.png' },
   Šifrarnici: { subItems: ['Novi unos', 'Pregled'], icon: 'key.png' },
 };
@@ -27,6 +28,7 @@ export default class AppContainer extends Component {
   render() {
     return (
       <div id="main">
+        <Header />
         <Sidebar items={adminItems} click={this.changeSidebarItem} selected={this.state.item} />
         <Content view={this.state.item} />
       </div>

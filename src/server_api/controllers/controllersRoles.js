@@ -11,6 +11,8 @@ var sendJsonResponse = function(res, status, content){
 };
 
 module.exports.setRoles = function (req, res) {
+  console.log(req.body);
+
   Roles.find({}, function (err, items) {
     if(err){
       sendJsonResponse(res, 400, err);

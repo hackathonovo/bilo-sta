@@ -122,7 +122,7 @@ export default class ListItem extends Component {
             <FieldContainer><Label>Uloga:&nbsp;</Label><Select name="role" value={data.role} onChange={this.handleInputChange}>{this.state.roles.map(role => <option value={role} key={role}>{role}</option>)}</Select></FieldContainer>
             <FieldContainer><Label>Ima smartphone:&nbsp;</Label><Input name="smartphone" className="narrow" checked={data.smartphone} type="checkbox" onChange={(e) => this.handleInputChange(e, false, true)} /></FieldContainer>
             <FieldContainer><Label>Slobodan:&nbsp;</Label><Input name="available" className="narrow" checked={data.available} type="checkbox" onChange={(e) => this.handleInputChange(e, false, true)} /></FieldContainer>
-            <Button className="btn btn-success" onClick={e => this.saveChanges(data._id)} ><Icon alt="save" src="static/img/save.png" />&nbsp;&nbsp;Spremi promjene</Button>
+            <Button className="btn btn-success" onClick={e => this.saveChanges(data._id)} ><Icon alt="save" src="static/img/save.png" />&nbsp;&nbsp;Spremi</Button>
           </div>
         </div>);
     }

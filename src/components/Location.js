@@ -73,7 +73,7 @@ export default class Location extends Component {
 
     return (
       <div>
-        <Title>Lokacije spasitelja</Title>
+        <Title>Prebivališta spašavatelja</Title>
         <div id="map"></div>
       </div>
     );
