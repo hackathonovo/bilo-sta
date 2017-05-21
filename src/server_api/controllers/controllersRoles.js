@@ -21,32 +21,42 @@ module.exports.setRoles = function (req, res) {
       })
     }
     else{
-      items.forEach(function (value) {
-          value.rolesList.push(req.body.rolesList);
-          value.save(function (err, value) {
-            if(err){
-              sendJsonResponse(res, 404, err);
-            } else {
-              sendJsonResponse(res, 200, value);
-            }
-          })
+      items.forEach(function (roles) {
+        roles.rolesList.push(req.body.rolesList);
+        roles.save(function (err, roles) {
+          if (err) {
+            sendJsonResponse(res, 404, err);
+          } else {
+            sendJsonResponse(res, 200, roles);
+          }
 
-      });
+        })
+      })/*
+      value.rolesList.push(req.body.rolesList);
+      value.save(function (err, value) {
+        if (err) {
+          sendJsonResponse(res, 404, err);
+        } else {
+          console.log("usao")
+        }
+        sendJsonResponse(res, 200, value);
+      })
+      */
     }
   })
-};
+}
 
 module.exports.getRoles = function (req , res) {
-  roles = [];
+  rolesNew = [];
   Roles.find({},function (err, items) {
     if(err){
       sendJsonResponse(res, 400, err);
     }
     else{
       items.forEach(function (value) {
-        roles.push(value.rolesList)
+        rolesNew.push(value.rolesList)
       })
-      sendJsonResponse(res, 200, roles)
+      sendJsonResponse(res, 200, rolesNew)
     }
   });
 };
