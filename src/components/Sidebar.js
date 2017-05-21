@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Item from './Item';
 
 const SidebarContainer = styled.div`
-  min-height: 100%;
+  height: 100vh;
   width: 15%;
   min-width: 100px;
   float: left;

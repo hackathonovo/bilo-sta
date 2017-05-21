@@ -18,6 +18,7 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWIapVE8iYcqULLCY4nj8hWyywtNAkXHA&callback=initMap" />
         </body>
       </html>
     );

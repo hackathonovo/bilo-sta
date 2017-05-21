@@ -99,7 +99,7 @@ export default class ListItem extends Component {
         }
       });
     } else {
-      postJSON(`api/people/${data.username}`, (err, data) => {
+      postJSON(`api/people/${data.username}`, data, (err, res) => {
         if (err) {
           console.error(err);
         }
