@@ -29,9 +29,7 @@ const Icon = styled.img`
 `;
 
 const Button = styled.button`
-  width: 250px;
   text-align: center;
-  margin-right: 20px;
   float: right;
 `;
 
@@ -44,7 +42,7 @@ const emptyPerson = {
   phoneNumber: '',
   password: '',
   profession: [],
-  role: '',
+  role: 'Admin',
   smartphone: true,
   _id: 'new-person',
 };
@@ -77,13 +75,6 @@ export default class People extends Component {
     }, 250);
   }
 
-  saveChanges() {
-    console.log('save');
-    console.log(this.state.people[0]);
-
-    //postJSON('/api/people', { ...this.state.people[0],  });
-  }
-
   render() {
     console.log(this.state);
 
@@ -95,10 +86,9 @@ export default class People extends Component {
       <ListContainer>
         <Title>Spasitelji</Title>
         <Button className="btn btn-info" onClick={this.addPerson} ><Icon alt="plus" src="static/img/plus.png" />&nbsp;&nbsp;Novi spasitelj</Button>
-        {/*<Button className="btn btn-danger" onClick={this.saveChanges} ><Icon alt="save" src="static/img/save.png" />&nbsp;&nbsp;Spremi promjene</Button>*/}
         <br /><br />
         <div id="people" role="tablist" aria-multiselectable="true">
-          {this.state.people.map(p => <ListItem key={p._id} data={p} />)}
+          {this.state.people.map(p => <ListItem key={p._id} data={p} condensed={false} />)}
         </div>
       </ListContainer>
     );

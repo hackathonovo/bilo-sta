@@ -16,8 +16,8 @@ app.prepare()
   .then(() => {
     const server = express();
     server.use(morgan('dev'));
-    server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: false }));
+    server.use(bodyParser.json());
     server.use('/api', routesApi);
 
     server.get('*', (req, res) => {

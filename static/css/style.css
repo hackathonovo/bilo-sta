@@ -23,3 +23,7 @@ html, body, body div {
 .cursor {
   cursor: pointer;
 }
+
+.narrow {
+  width: inital;
+}

@@ -43,6 +43,8 @@ module.exports.login = function(req, res){
 };
 
 module.exports.createUser = function(req, res){
+  console.log(req.body);
+
   if (!req.body.username || !req.body.password || !req.body.firstname || !req.body.lastname){
     sendJsonResponse(res, 400, {"message":"required some fields.."});
   } else {

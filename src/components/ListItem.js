@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import styled from 'styled-components';
 
-import { getJSON } from '../helpers';
+import { getJSON, postJSON } from '../helpers';
 
 const HiddenLink = styled.a`
   text-decoration: none;
@@ -26,6 +26,7 @@ const Input = styled.input`
 const Label = styled.label`
   font-weight: bold;
   width: 150px;
+  float: left;
 `;
 
 const Select = styled.select`
@@ -37,6 +38,17 @@ const Select = styled.select`
   padding: 2px;
 `;
 
+const Icon = styled.img`
+  height: 23px;
+  padding-bottom: 2px;
+`;
+
+const Button = styled.button`
+  text-align: center;
+  float: right;
+  margin-bottom: 20px;
+`;
+
 export default class ListItem extends Component {
   constructor(props) {
     super(props);
@@ -44,6 +56,7 @@ export default class ListItem extends Component {
     this.state = { data: this.props.data, spec: this.props.data.profession.toString(), roles:[] };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.renderAcordion = this.renderAcordion.bind(this);
   }
 
   componentWillMount() {
@@ -53,12 +66,11 @@ export default class ListItem extends Component {
         return;
       }
 
-      this.setState({ ...this.state, roles });
+      this.setState({ ...this.state, roles: roles[0] });
     });
   }
 
   handleInputChange(e, isArray, isBoolean) {
-    console.log(e.target.value);
     const newState = { ...this.state };
 
     if (isArray) {
@@ -74,6 +86,48 @@ export default class ListItem extends Component {
     this.setState(newState);
   }
 
+  saveChanges(id) {
+    const data = { ...this.state.data };
+    data.profession = this.state.spec.split(',');
+    data.password = data.username;
+    delete data._id;
+
+    if (id === 'new-person') {
+      postJSON('/api/people', data, (err, res) => {
+        if (err) {
+          console.error(err);
+        }
+      });
+    } else {
+      postJSON(`api/people/${data.username}`, (err, data) => {
+        if (err) {
+          console.error(err);
+        }
+      });
+    }
+  }
+
+  renderAcordion(data) {
+    if (!this.props.condensed) {
+      return (
+        <div id={`colapse-${data._id}`} className="collapse" role="tabpanel" aria-labelledby={data._id}>
+          <div className="card-block">
+            <FieldContainer><Label>Ime:&nbsp;</Label><Input name="firstname" type="text" value={data.firstname} onChange={this.handleInputChange} /></FieldContainer>
+            <FieldContainer><Label>Prezime:&nbsp;</Label><Input name="lastname" type="text" value={data.lastname} onChange={this.handleInputChange} /></FieldContainer>
+            <FieldContainer><Label>E-mail:&nbsp;</Label><Input name="mail" type="text" value={data.mail} onChange={this.handleInputChange} /></FieldContainer>
+            <FieldContainer><Label>Broj mobitela:&nbsp;</Label><Input name="phoneNumber" type="text" value={data.phoneNumber} onChange={this.handleInputChange} /></FieldContainer>
+            <FieldContainer><Label>Adresa:&nbsp;</Label><Input name="address" type="text" value={data.address.addressname} onChange={this.handleInputChange} /></FieldContainer>
+            <FieldContainer><Label>Korisničko ime:&nbsp;</Label><Input name="username" type="text" value={data.username} onChange={this.handleInputChange} /></FieldContainer>
+            <FieldContainer><Label>Specijalnosti:&nbsp;</Label><Input name="profession" type="text" value={this.state.spec} onChange={(e) => this.handleInputChange(e, true)} /></FieldContainer>
+            <FieldContainer><Label>Uloga:&nbsp;</Label><Select name="role" value={data.role} onChange={this.handleInputChange}>{this.state.roles.map(role => <option value={role} key={role}>{role}</option>)}</Select></FieldContainer>
+            <FieldContainer><Label>Ima smartphone:&nbsp;</Label><Input name="smartphone" className="narrow" checked={data.smartphone} type="checkbox" onChange={(e) => this.handleInputChange(e, false, true)} /></FieldContainer>
+            <FieldContainer><Label>Slobodan:&nbsp;</Label><Input name="available" className="narrow" checked={data.available} type="checkbox" onChange={(e) => this.handleInputChange(e, false, true)} /></FieldContainer>
+            <Button className="btn btn-success" onClick={e => this.saveChanges(data._id)} ><Icon alt="save" src="static/img/save.png" />&nbsp;&nbsp;Spremi promjene</Button>
+          </div>
+        </div>);
+    }
+  }
+
   render() {
     const data = this.state.data;
 
@@ -86,20 +140,7 @@ export default class ListItem extends Component {
             </h5>
           </div>
         </HiddenLink>
-        <div id={`colapse-${data._id}`} className='collapse' role="tabpanel" aria-labelledby={data._id}>
-          <div className="card-block">
-            <FieldContainer><Label>Ime:&nbsp;</Label><Input name="firstname" type="text" value={data.firstname} onChange={this.handleInputChange} /></FieldContainer>
-            <FieldContainer><Label>Prezime:&nbsp;</Label><Input name="lastname" type="text" value={data.lastname} onChange={this.handleInputChange} /></FieldContainer>
-            <FieldContainer><Label>E-mail:&nbsp;</Label><Input name="mail" type="text" value={data.mail} onChange={this.handleInputChange} /></FieldContainer>
-            <FieldContainer><Label>Broj mobitela:&nbsp;</Label><Input name="phoneNumber" type="text" value={data.phoneNumber} onChange={this.handleInputChange} /></FieldContainer>
-            <FieldContainer><Label>Adresa:&nbsp;</Label><Input name="address" type="text" value={data.address.addressname} onChange={this.handleInputChange} /></FieldContainer>
-            <FieldContainer><Label>Korisničko ime:&nbsp;</Label><Input name="username" type="text" value={data.username} onChange={this.handleInputChange} /></FieldContainer>
-            <FieldContainer><Label>Specijalnosti:&nbsp;</Label><Input name="profession" type="text" value={this.state.spec} onChange={(e) => this.handleInputChange(e, true)} /></FieldContainer>
-            <FieldContainer><Label>Uloga:&nbsp;</Label><Select name="role" value={data.role} onChange={this.handleInputChange}>{this.state.roles.map(role => <option value={role} key={role}>{role}</option>)}</Select></FieldContainer>
-            <FieldContainer><Label>Ima smartphone:&nbsp;</Label><Input name="smartphone" checked={data.smartphone} type="checkbox" onChange={(e) => this.handleInputChange(e, false, true)} /></FieldContainer>
-            <FieldContainer><Label>Slobodan:&nbsp;</Label><Input name="available" checked={data.available} type="checkbox" onChange={(e) => this.handleInputChange(e, false, true)} /></FieldContainer>
-          </div>
-        </div>
+        {this.renderAcordion(data)}
       </div>
     );
   }
