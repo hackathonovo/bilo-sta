@@ -4,6 +4,7 @@ var controllerPeople = require('../controllers/controllerPeople');
 var controllerLocations = require('../controllers/controllerLocations');
 var controllerActions = require('../controllers/controllerActions');
 var controllerRoles = require('../controllers/controllersRoles');
+var controllerTracker = require('../controllers/controllerTracker');
 
 router.post('/login', controllerPeople.login);
 router.get('/locations', controllerLocations.getLocations);
@@ -19,5 +20,8 @@ router.post('/availability', controllerPeople.setAvailability);
 router.get('/availability/:username', controllerPeople.getAvailability);
 router.post('/action/:_id', controllerActions.updateAction);
 router.post('/help', controllerActions.addRescuer);
+router.post('/location', controllerTracker.addLocation);
+router.get('/action/:id/active', controllerActions.getCurrentLocations);
+
 
 module.exports = router;
