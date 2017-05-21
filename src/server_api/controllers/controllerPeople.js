@@ -157,3 +157,19 @@ module.exports.availableUsers = function(req, res) {
     }
   });
 };
+
+module.exports.getAvailability = function (req, res) {
+  if (!req.params || !req.params.username){
+    sendJsonResponse(res, 400, {"message":"username required"})
+  } else {
+    Person.findOne({username: req.params.username}, function(err, person){
+      if(!person){
+        sendJsonResponse(res, 400, {"message":"username not found"});
+      } else if(err){
+        sendJsonResponse(res, 404, err);
+      } else{
+        sendJsonResponse(res, 200, person.available);
+      }
+    });
+  }
+};
