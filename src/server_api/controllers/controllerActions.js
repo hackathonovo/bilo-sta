@@ -189,8 +189,26 @@ module.exports.addRescuer = function(req, res){
   }
 };
 
+module.exports.getCurrentLocations = function(req, res){
+  if(!req.params.id){
+    sendJsonResponse(res, 400, {"message":":id is required"});
+  } else {
+    Action.findOne({
+      _id: req.params.id
+    },function(err, action){
+      if(!action){
+        sendJsonResponse(res, 400, {"message":"action not found"});
+      } else if(err){
+        sendJsonResponse(res, 404, err);
+      } else {
+        var persons = action.persons;
+        for(var i = 0; i <= persons.length; ++i){
 
-
+        }
+      }
+    });
+  }
+};
 
 
 
