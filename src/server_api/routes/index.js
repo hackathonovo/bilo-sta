@@ -20,6 +20,7 @@ router.post('/availability', controllerPeople.setAvailability);
 router.get('/availability/:username', controllerPeople.getAvailability);
 router.post('/action/:_id', controllerActions.updateAction);
 router.post('/help', controllerActions.addRescuer);
+router.post('/action/finish/:id', controllerActions.finishAction);
 router.post('/location', controllerTracker.addLocation);
 router.get('/action/:id/active', controllerActions.getCurrentLocations);
 

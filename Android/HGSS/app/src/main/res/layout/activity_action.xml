@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="net.hr.in2.hgss.hgss.mainScreen.listAction.ActionActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:textAllCaps="true"
+            android:id="@+id/action_title_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/action_title"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/action_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:id="@+id/action_start_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/start_date"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/action_start_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:id="@+id/action_details_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/action_details"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/action_details_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:id="@+id/action_target_people_number_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/target_people_number"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/action_target_people_number_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:id="@+id/action_current_people_number_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/current_people_number"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/action_current_people_number_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:id="@+id/action_leader_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/leader"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/action_leader_name_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/action_leader_phone_number_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="phone"
+            android:textSize="20sp"/>
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="30dp"
+            android:id="@+id/add_me_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:background="@color/blueHgss"
+            android:text="@string/add_me"/>
+
+    </LinearLayout>
+</ScrollView>
