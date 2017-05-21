@@ -20,7 +20,7 @@ module.exports.getLocations = function (req , res) {
     }
     else{
       items.forEach(function (value) {
-        locations.push(value.address, value.username)
+        locations.push(value)
         })
       sendJsonResponse(res, 200, locations)
     }
