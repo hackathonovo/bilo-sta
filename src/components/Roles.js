@@ -65,8 +65,6 @@ export default class Roles extends Component {
       return <Loading alt="Loading" src="static/img/spinner.gif" />;
     }
 
-    console.log(this.state);
-
     return (
       <ListContainer>
         <Title>Uloge</Title>

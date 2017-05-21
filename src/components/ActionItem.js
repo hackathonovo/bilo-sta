@@ -104,8 +104,6 @@ export default class ActionItem extends Component {
   render() {
     const data = this.state.data;
 
-    console.log(data);
-
     return (
       <div className="card height-fix cursor">
         <HiddenLink data-toggle="collapse" data-parent="#people" href={`#colapse-${data._id}`} aria-expanded="true" aria-controls={`colapse-${data._id}`}>
