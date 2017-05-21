@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Item from './Item';
 
 const SidebarContainer = styled.div`
-  height: 100vh;
+  height: calc(100vh - 150px);
   width: 15%;
   min-width: 100px;
   float: left;
@@ -13,16 +13,17 @@ const SidebarContainer = styled.div`
 export default class Sidebar extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { selected: 'Raspoloživost' };
   }
 
   renderSidebarItems() {
     const items = Object.keys(this.props.items).map(item => {
       if (this.props.selected === item) {
-        // TODO mini items
-        //return <MiniItem click={this.props.click} key={item} subItems={this.props.items[item].subItems} icon={this.props.items[item].icon}>{item}></MiniItem>
+        return <Item click={this.props.click} style={{ backgroundColor: '#123456' }} key={item} icon={this.props.items[item].icon}>{item}</Item>
       }
 
-      return <Item click={this.props.click} key={item} subItems={this.props.items[item].subItems} icon={this.props.items[item].icon}>{item}</Item>
+      return <Item click={this.props.click} key={item} icon={this.props.items[item].icon}>{item}</Item>
     });
 
     return items;

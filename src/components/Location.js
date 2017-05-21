@@ -65,15 +65,13 @@ export default class Location extends Component {
   }
 
   render() {
-    console.log(this.state.locations);
-
     if (!this.state.locations) {
       return null;
     }
 
     return (
       <div>
-        <Title>Lokacije spasitelja</Title>
+        <Title>Prebivališta spašavatelja</Title>
         <div id="map"></div>
       </div>
     );

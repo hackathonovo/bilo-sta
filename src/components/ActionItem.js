@@ -47,6 +47,7 @@ const Button = styled.button`
   text-align: center;
   float: right;
   margin-bottom: 20px;
+  margin-left: 20px;
 `;
 
 export default class ActionItem extends Component {
@@ -75,6 +76,15 @@ export default class ActionItem extends Component {
     });
   }
 
+  finishAction(id) {
+    postJSON(`api/action/finish/${id}`, (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
+  }
+
   renderAcordion(data) {
     if (!this.props.condensed) {
       return (
@@ -83,8 +93,9 @@ export default class ActionItem extends Component {
             <FieldContainer>
               <Label>Opis:&nbsp;</Label>
               <Input name="details" value={data.details} onChange={this.handleInputChange} />
+              <Button className="btn btn-success" onClick={e => this.saveChanges(data._id)} ><Icon alt="save" src="static/img/save.png" />&nbsp;&nbsp;Spremi</Button>
+              <Button className="btn btn-warning" onClick={e => this.finishAction(data._id)}><Icon alt="save" src="static/img/finish.png" />&nbsp;&nbsp;Završi akciju</Button>
             </FieldContainer>
-            <Button className="btn btn-success" onClick={e => this.saveChanges(data._id)} ><Icon alt="save" src="static/img/save.png" />&nbsp;&nbsp;Spremi promjene</Button>
           </div>
         </div>);
     }

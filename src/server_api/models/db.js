@@ -3,6 +3,7 @@ require('./stations');
 require('./persons');
 require('./actions');
 require('./roles');
+require('./trackers');
 var dbURI = 'mongodb://hgss:hgss123@192.168.201.46:27017/hgss';
 if (process.env.NODE_ENV === 'production'){
   dbURI = 'mongodb://hgss:hgss123@127.0.0.1:27017/hgss';

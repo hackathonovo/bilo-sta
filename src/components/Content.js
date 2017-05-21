@@ -5,11 +5,12 @@ import Availability from './Availability';
 import People from './People';
 import Actions from './Actions';
 import Location from './Location';
+import Roles from './Roles';
 
 const ContentWrapper = styled.div`
   margin-left: 15%;
   width: 85%;
-  height: 100vh;
+  height: calc(100vh - 150px);
   padding: 20px;
   background-color: whitesmoke;
   overflow: auto;
@@ -24,14 +25,14 @@ export default class Content extends Component {
 
   chooseContentView() {
     switch (this.props.view) {
-      case 'Lokacija':
+      case 'Prebivališta':
         return <Location />;
-      case 'Spasitelj':
+      case 'Spašavatelj':
         return <People />;
       case 'Akcije':
         return <Actions />;
       case 'Šifrarnici':
-        return <div />;
+        return <Roles />;
       default: return <Availability />;
     }
   }

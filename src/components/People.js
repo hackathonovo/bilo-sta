@@ -80,7 +80,7 @@ export default class People extends Component {
 
     return (
       <ListContainer>
-        <Title>Spasitelji</Title>
+        <Title>Spašavatelji</Title>
         <Button className="btn btn-info" onClick={this.addPerson} ><Icon alt="plus" src="static/img/plus.png" />&nbsp;&nbsp;Novi spasitelj</Button>
         <br /><br />
         <div id="people" role="tablist" aria-multiselectable="true">
