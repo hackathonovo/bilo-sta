@@ -1,0 +1,142 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            tools:context="net.hr.in2.hgss.hgss.mainScreen.newAction.NewActionFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingBottom="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:textSize="15sp"
+            android:textAllCaps="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_title"/>
+
+        <EditText
+            android:id="@+id/action_title_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/action_title_hint"
+            android:maxLines="1"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_details"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:id="@+id/action_details_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/action_details_hint"
+            android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_location_tv"
+            android:textSize="15sp"/>
+
+        <Button
+            android:textAllCaps="true"
+            android:id="@+id/meet_location_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/maps_btn"
+            android:textColor="@color/white"
+            android:background="@color/blueHgss"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_filter"
+            android:textSize="15sp"/>
+
+        <LinearLayout
+            android:id="@+id/check_box_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="4dp">
+
+            <CheckBox
+                android:id="@+id/speleolog_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/speleolog"
+                android:textSize="20sp"/>
+
+            <CheckBox
+                android:id="@+id/alpinist_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/alpinist"
+                android:textSize="20sp"/>
+
+            <CheckBox
+                android:id="@+id/spas_na_vodi_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spas_na_vodi"
+                android:textSize="20sp"/>
+
+            <CheckBox
+                android:id="@+id/helikopter_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/helikopter"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/people_number"/>
+
+        <EditText
+            android:id="@+id/people_number_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="4"
+            android:inputType="number"/>
+
+        <Button
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:id="@+id/confirm_action_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_action"
+            android:textColor="@color/white"
+            android:background="@color/blueHgss"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+
+</ScrollView>
