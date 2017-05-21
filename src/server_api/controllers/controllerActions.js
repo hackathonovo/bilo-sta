@@ -64,6 +64,7 @@ module.exports.createAction = function(req, res){
       title : req.body.title,
       details : req.body.details,
       professions : req.body.profession ? req.body.profession.split(",") : req.body.profession,
+      persons: req.body.persons,
       leader : {
         username: req.body.leader.username,
         password: req.body.leader.password,
@@ -153,8 +154,8 @@ module.exports.updateAction = function(req, res){
 };
 
 module.exports.addRescuer = function(req, res){
-  if(!req.body.username){
-    sendJsonResponse(res, 400, {"message":"username required"});
+  if(!req.body.username || !req.body.title){
+    sendJsonResponse(res, 400, {"message":"username and title required"});
   } else {
     Person.findOne({username: req.body.username}, function(err, person){
       if(!person){
@@ -162,7 +163,27 @@ module.exports.addRescuer = function(req, res){
       }else if(err){
         sendJsonResponse(res, 404, err);
       }else{
-
+        var personToPush = person;
+        //console.log(personToPush);
+        Action.findOne({
+          title: req.body.title
+        },function(err, action){
+          if(!action){
+            sendJsonResponse(res, 400, {"message":"action not found"});
+          } else if(err){
+            sendJsonResponse(res, 404, err);
+          } else {
+            action.persons.push(personToPush);
+            action.save(function(err, action){
+              console.log(action);
+              if(err){
+                sendJsonResponse(res, 404, err);
+              } else {
+                sendJsonResponse(res, 200, true);
+              }
+            });
+          }
+        });
       }
     });
   }
